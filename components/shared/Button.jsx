@@ -10,7 +10,7 @@ export default function Button({title, onPress}) {
             padding: 20,
             backgroundColor: Colors.PRIMARY,
             width: '100%',
-            borderRadius: 50,
+            borderRadius: 20,
         }}>
             <Text style={{
                 fontSize: 20,

@@ -3,6 +3,7 @@ import Colors from "./../shared/Colors";
 import Button from "./../components/shared/Button";
 import { useRouter } from "expo-router";
 
+
 export default function Index() {
   const router = useRouter();
   return (
@@ -26,7 +27,7 @@ export default function Index() {
         alignItems: 'center',
         padding: 20,
       }}>
-        <Image source={require('./../assets/images/react-logo.png')}
+        <Image source={require('./../assets/images/logo.png')}
         style={{
           width: 100,
           height: 150,
@@ -55,6 +56,7 @@ export default function Index() {
       }}>
         <Button title={'Get Started!!'} 
         onPress={() => router.push('/auth/SignIn')}
+        
         />
       </View>
     </View>
