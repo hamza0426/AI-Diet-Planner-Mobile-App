@@ -1,11 +1,12 @@
 import React from 'react'
 import { TextInput } from 'react-native'
 
-export default function Input ({placeholder, password=false}) {
+export default function Input ({placeholder, password=false, onChangeText}) {
   
     return (
       <TextInput placeholder={placeholder} 
       secureTextEntry={password}
+      onChangeText={(value) => onChangeText(value)}
       style={{
         padding: 15,
         borderWidth: 1,
