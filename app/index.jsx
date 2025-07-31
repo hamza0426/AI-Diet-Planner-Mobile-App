@@ -7,6 +7,7 @@ import { auth } from "./../services/FirebaseConfig";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { useConvex } from "convex/react";
+import { api } from "../convex/_generated/api";
 
 export default function Index() {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function Index() {
       });
       console.log(userData);
       setUser(userData);
+      router.replace('/(tabs)/Home')
     });
     return() => unsubscribe()
   },[])
