@@ -1,4 +1,4 @@
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { Image, Text, View, Alert } from "react-native";
 import Button from "../../components/shared/Button";
 import Input from "../../components/shared/Input";
