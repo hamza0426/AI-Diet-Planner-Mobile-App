@@ -70,7 +70,7 @@ export default function Preferance() {
           color: Colors.Gray,
         }}
       >
-        this will help us to create a personalized diet plan for you
+        This will help us to create a personalized diet plan for you
       </Text>
 
       <View
