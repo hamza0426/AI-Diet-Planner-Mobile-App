@@ -1,10 +1,4 @@
-import {
-  Dumbbell01Icon,
-  FemaleSymbolIcon,
-  MaleSymbolIcon,
-  PlusSignSquareIcon,
-  WeightScaleIcon,
-} from "@hugeicons/core-free-icons";
+import { Dumbbell01Icon, FemaleSymbolIcon, MaleSymbolIcon, PlusSignSquareIcon, WeightScaleIcon, } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useMutation } from "convex/react";
 import { useRouter } from "expo-router";
@@ -12,6 +6,8 @@ import { useContext, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { UserContext } from "../../context/UserContext";
 import { api } from "../../convex/_generated/api";
+import { CalculateCaloriesAI } from "../../services/AiModel";
+import Prompt from "../../shared/Prompt";
 import Button from "./../../components/shared/Button";
 import Input from "./../../components/shared/Input";
 import Colors from "./../../shared/Colors";
@@ -30,6 +26,9 @@ export default function Preferance() {
       Alert.alert("Plese enter all details to continue!!");
       return;
     }
+
+
+
     const data = {
       uid: user?._id,
       weight: weight,
@@ -37,14 +36,29 @@ export default function Preferance() {
       gender: gender,
       goal: goal,
     };
+
+
+    //Calculate Calories using AI
+    const PROMPT = JSON.stringify(data)+Prompt.CALORIES_PROMPT
+    console.log(PROMPT);
+    const AIResult = await CalculateCaloriesAI(PROMPT)
+    console.log(AIResult.choices[0].message.content)
+    const AIResp=AIResult.choices[0].message.content
+    const JSONContent= JSON.parse(AIResp.replace('```json','').replace('```','') )
+    console.log(JSONContent)
+
+
+    // console.log(data)
     const result = await UpdateUserPref({
       ...data,
+      ...JSONContent
     });
     setUser((prev) => ({
       ...prev,
       ...data,
     }));
     router.replace("/(tabs)/Home");
+   
   };
 
   return (
@@ -114,6 +128,7 @@ export default function Preferance() {
           style={{
             fontWeight: "medium",
             fontSize: 18,
+            marginBottom:10
           }}
         >
           Gender
@@ -133,6 +148,7 @@ export default function Preferance() {
               borderWidth: 1,
               padding: 15,
               borderColor: gender == "Male" ? Colors.PRIMARY : Colors.Gray,
+              backgroundColor: gender === "Male" ? Colors.BLUE : "transparent",
               borderRadius: 10,
               alignItems: "center",
             }}
@@ -140,9 +156,10 @@ export default function Preferance() {
             <HugeiconsIcon
               icon={MaleSymbolIcon}
               size={40}
-              color={Colors.BLUE}
+              color={gender === "Male" ? "white" : Colors.BLUE}
             />
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => setGender("Female")}
             style={{
@@ -150,6 +167,7 @@ export default function Preferance() {
               borderWidth: 1,
               padding: 15,
               borderColor: gender == "Female" ? Colors.PRIMARY : Colors.Gray,
+              backgroundColor: gender === "Female" ? Colors.PINK : "transparent",
               borderRadius: 10,
               alignItems: "center",
             }}
@@ -157,10 +175,11 @@ export default function Preferance() {
             <HugeiconsIcon
               icon={FemaleSymbolIcon}
               size={40}
-              color={Colors.PINK}
+              color={gender === "Female" ? "white" : Colors.PINK}
             />
           </TouchableOpacity>
-          <View
+
+          {/* <View
             style={{
               flex: 1,
               borderWidth: 1,
@@ -179,7 +198,7 @@ export default function Preferance() {
             >
               Others
             </Text>
-          </View>
+          </View> */}
         </View>
       </View>
 
@@ -191,7 +210,7 @@ export default function Preferance() {
             marginTop: 25,
           }}
         >
-          Whats Your Goal?
+          Whats Your Goal ?
         </Text>
 
         <TouchableOpacity
@@ -200,6 +219,7 @@ export default function Preferance() {
             styles.goalContainer,
             {
               borderColor: goal == "Weight Loss" ? Colors.PRIMARY : Colors.Gray,
+              borderWidth: goal === "Weight Loss" ? 2 : 1,
             },
           ]}
         >
@@ -218,6 +238,7 @@ export default function Preferance() {
             styles.goalContainer,
             {
               borderColor: goal == "Muscle Gain" ? Colors.PRIMARY : Colors.Gray,
+              borderWidth: goal === "Muscle Gain" ? 2 : 1,
             },
           ]}
         >
@@ -236,6 +257,7 @@ export default function Preferance() {
             styles.goalContainer,
             {
               borderColor: goal == "Weight Gain" ? Colors.PRIMARY : Colors.Gray,
+              borderWidth: goal === "Weight Gain" ? 2 : 1,
             },
           ]}
         >

@@ -1,0 +1,8 @@
+export default {
+  CALORIES_PROMPT: `Based on Weight,Height,Gender, and Goal give me calories and proteins need daily consider age as 28 in JSON format
+   and follow the schema: 
+  {
+  calories:<>,
+  proteins:<>
+  }`
+};
