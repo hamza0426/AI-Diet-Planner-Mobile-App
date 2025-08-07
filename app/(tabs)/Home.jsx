@@ -1,24 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "expo-router";
-import React, { useContext, useEffect } from "react";
-import { Text, View } from "react-native";
-import { UserContext } from './../../context/UserContext';
-// import { Tabs } from "expo-router";
+import { useContext, useEffect } from "react";
+import { View } from "react-native";
+import GenerateRecipeCard from "../../components/GenerateRecipeCard";
+import HomeHeader from "../../components/HomeHeader";
+import TodayProgress from "../../components/TodayProgress";
+import TodaysMealPlan from "../../components/TodaysMealPlan";
+import { UserContext } from "./../../context/UserContext";
 
 export default function Home() {
-  const {user}=useContext(UserContext);
-  const router=useRouter();
+  const { user } = useContext(UserContext);
+  const router = useRouter();
   useEffect(() => {
-    if( !user?.weight){
-      router.replace('/preferance')
+    if (!user?.weight) {
+      router.replace("/preferance");
     }
-  },[user])
-
-
-
+  }, [user]);
 
   return (
-    <View>
-      <Text>Home</Text>
+    <View
+      style={{
+        padding: 20,
+      }}
+    >
+      <HomeHeader />
+      <TodayProgress />
+      <GenerateRecipeCard />
+      <TodaysMealPlan />
     </View>
   );
 }
