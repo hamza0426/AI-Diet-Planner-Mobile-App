@@ -48,7 +48,7 @@ export default function TodayProgress() {
           color: Colors.PRIMARY,
         }}
       >
-        1500/2000{user?.calories} kcal
+        1500/{user.calories} kcal
       </Text>
       {/* calories show nahi ho rahi pta nai kyun */}
       <Text
