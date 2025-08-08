@@ -16,7 +16,7 @@ export default function GenerateRecipeCard() {
     >
       <Text
         style={{
-          fontSize: 23,
+          fontSize: 20,
           fontWeight: "bold",
           color: Colors.WHITE,
         }}
@@ -26,7 +26,7 @@ export default function GenerateRecipeCard() {
       <Text
         style={{
           color: Colors.WHITE,
-          fontSize: 18,
+          fontSize: 15,
           opacity: 0.8,
           marginTop: 7,
         }}
@@ -49,11 +49,11 @@ export default function GenerateRecipeCard() {
       >
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 15,
             color: Colors.PRIMARY,
           }}
         >
-          Generate Now!!
+          Generate Now !! ✨
         </Text>
         {/* <HugeiconsIcon icon={ArrowUpRight01FreeIcons} color={Colors.PRIMARY} /> */}
       </TouchableOpacity>

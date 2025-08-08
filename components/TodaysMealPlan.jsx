@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Text, View } from "react-native";
 import Colors from "../shared/Colors";
 import Button from "./shared/Button";
+import { CalendarAdd01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react-native";
 
 export default function TodaysMealPlan() {
   const [mealPlan, setMealPlan] = useState();
@@ -31,7 +33,7 @@ export default function TodaysMealPlan() {
             borderRadius: 15,
           }}
         >
-          {/* <HugeiconsIcon icon={CalendarAdd01FreeIcons} size={40} color=Colors.PRIMARY></HugeiconsIcon> */}
+          <HugeiconsIcon icon={CalendarAdd01Icon} size={25} color={Colors.PRIMARY} />
           <Text
             style={{
               fontSize: 18,

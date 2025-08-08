@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React,{ useContext } from "react";
 import { Image, Text, View } from "react-native";
 import { UserContext } from "../context/UserContext";
 
@@ -35,7 +35,7 @@ export default function HomeHeader() {
             fontWeight: "bold",
           }}
         >
-          {user.name}
+          {user?.name}
         </Text>
       </View>
     </View>

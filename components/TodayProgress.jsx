@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Text, View } from "react-native";
 import { UserContext } from "../context/UserContext";
 import Colors from "../shared/Colors";
@@ -48,7 +48,7 @@ export default function TodayProgress() {
           color: Colors.PRIMARY,
         }}
       >
-        1500/{user.calories} kcal
+        1500/{user?.calories} kcal
       </Text>
       {/* calories show nahi ho rahi pta nai kyun */}
       <Text

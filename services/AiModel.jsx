@@ -6,14 +6,32 @@ const openai = new OpenAI({
   
 });
 
+  const AIMODELNAME = 'openai/gpt-oss-20b:free';
+
+
   export const CalculateCaloriesAI=async(PROMPT) => await openai.chat.completions.create({
-    model: 'openai/gpt-oss-20b:free',
+    model: AIMODELNAME,
     messages: [
       {
         role: 'user',
         content: PROMPT,
       },
     ],
+    response_fromat: 'json_object',
+  });
+
+
+
+  
+  export const GenerateRecipeOptionsAiModel = async (PROMPT) => await openai.chat.completions.create({
+    model: AIMODELNAME,
+    messages: [
+      {
+        role: 'user',
+        content: PROMPT,
+      },
+    ],
+    response_fromat: 'json_object'
   });
 
 //   console.log(CalculateCaloriesAI.choices[0].message);

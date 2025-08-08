@@ -2,9 +2,37 @@
 import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import Button from "../../components/shared/Button";
 import Colors from "../../shared/Colors";
+import { GenerateRecipeOptionsAiModel } from "../../services/AiModel";
+import Prompt from "../../shared/Prompt";
+import { useState } from "react";
+import RecipeOptionList from "../../components/RecipeOptionList";
 
 export default function GenerateAiRecipe() {
-  const GenerateRecipeOptions = () => {};
+
+
+
+  const [input,setInput]=useState();
+  const [loading, setLoading]= useState(false);
+  const [recipeOption, setRecipeOption] = useState([])
+  const GenerateRecipeOptions = async() => {
+    setLoading(true);
+    // make  a ai model to generate recipe based on user input
+    try{
+    const PROMPT = input+Prompt.GENERATE_RECIPE_OPTION_PROMPT;
+    const result= await GenerateRecipeOptionsAiModel(PROMPT)
+    console.log(result.choices[0].message)
+    const extractJson=(result.choices[0].message.content).replace('```json','').replace('```','')
+    const parsedJSONResp = JSON.parse(extractJson);
+    console.log(parsedJSONResp)
+    setRecipeOption(parsedJSONResp)
+    setLoading(false);
+    }
+    catch(e){
+      setLoading(false);
+      console.log(e)
+    }
+    
+  };
   return (
     <View
       style={{
@@ -24,7 +52,7 @@ export default function GenerateAiRecipe() {
       </Text>
       <Text
         style={{
-          marginTop: 5,
+          marginTop: 25,
           color: Colors.Gray,
           fontSize: 16,
         }}
@@ -33,6 +61,7 @@ export default function GenerateAiRecipe() {
       </Text>
       <TextInput
         style={styles.textArea}
+        onChangeText={(value)=>setInput(value)}
         placeholder="Enter Your Ingredients or Recipe name"
       />
       <View
@@ -40,8 +69,11 @@ export default function GenerateAiRecipe() {
           marginTop: 25,
         }}
       >
-        <Button title={"Generate Recipe"} onPress={GenerateRecipeOptions} />
+        <Button title={"Generate Recipe"} onPress={GenerateRecipeOptions}
+        loading={loading} />
       </View>
+
+      <RecipeOptionList recipeOption={recipeOption}/>
     </View>
   );
 }
