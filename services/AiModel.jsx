@@ -1,38 +1,34 @@
-import OpenAI from 'openai';
+import OpenAI from "openai";
 
 const openai = new OpenAI({
-  baseURL: 'https://openrouter.ai/api/v1',
+  baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.EXPO_PUBLIC_OPENROUTER_API_KEY,
-  
 });
 
-  const AIMODELNAME = 'openai/gpt-oss-20b:free';
+const AIMODELNAME = "openai/gpt-oss-20b:free";
 
-
-  export const CalculateCaloriesAI=async(PROMPT) => await openai.chat.completions.create({
+export const CalculateCaloriesAI = async (PROMPT) =>
+  await openai.chat.completions.create({
     model: AIMODELNAME,
     messages: [
       {
-        role: 'user',
+        role: "user",
         content: PROMPT,
       },
     ],
-    response_fromat: 'json_object',
+    response_fromat: "json_object",
   });
 
-
-
-  
-  export const GenerateRecipeOptionsAiModel = async (PROMPT) => await openai.chat.completions.create({
+export const GenerateAIRecipe = async (PROMPT) =>
+  await openai.chat.completions.create({
     model: AIMODELNAME,
     messages: [
       {
-        role: 'user',
+        role: "user",
         content: PROMPT,
       },
     ],
-    response_fromat: 'json_object'
+    response_fromat: "json_object",
   });
 
 //   console.log(CalculateCaloriesAI.choices[0].message);
-

@@ -1,37 +1,34 @@
 /* eslint-disable eqeqeq */
-import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
-import Button from "../../components/shared/Button";
-import Colors from "../../shared/Colors";
-import { GenerateRecipeOptionsAiModel } from "../../services/AiModel";
-import Prompt from "../../shared/Prompt";
 import { useState } from "react";
+import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import RecipeOptionList from "../../components/RecipeOptionList";
+import Button from "../../components/shared/Button";
+import { GenerateAIRecipe } from "../../services/AiModel";
+import Colors from "../../shared/Colors";
+import Prompt from "../../shared/Prompt";
 
 export default function GenerateAiRecipe() {
-
-
-
-  const [input,setInput]=useState();
-  const [loading, setLoading]= useState(false);
-  const [recipeOption, setRecipeOption] = useState([])
-  const GenerateRecipeOptions = async() => {
+  const [input, setInput] = useState();
+  const [loading, setLoading] = useState(false);
+  const [recipeOption, setRecipeOption] = useState([]);
+  const GenerateRecipeOptions = async () => {
     setLoading(true);
     // make  a ai model to generate recipe based on user input
-    try{
-    const PROMPT = input+Prompt.GENERATE_RECIPE_OPTION_PROMPT;
-    const result= await GenerateRecipeOptionsAiModel(PROMPT)
-    console.log(result.choices[0].message)
-    const extractJson=(result.choices[0].message.content).replace('```json','').replace('```','')
-    const parsedJSONResp = JSON.parse(extractJson);
-    console.log(parsedJSONResp)
-    setRecipeOption(parsedJSONResp)
-    setLoading(false);
-    }
-    catch(e){
+    try {
+      const PROMPT = input + Prompt.GENERATE_RECIPE_OPTION_PROMPT;
+      const result = await GenerateAIRecipe(PROMPT);
+      console.log(result.choices[0].message);
+      const extractJson = result.choices[0].message.content
+        .replace("```json", "")
+        .replace("```", "");
+      const parsedJSONResp = JSON.parse(extractJson);
+      console.log(parsedJSONResp);
+      setRecipeOption(parsedJSONResp);
       setLoading(false);
-      console.log(e)
+    } catch (e) {
+      setLoading(false);
+      console.log(e);
     }
-    
   };
   return (
     <View
@@ -61,7 +58,7 @@ export default function GenerateAiRecipe() {
       </Text>
       <TextInput
         style={styles.textArea}
-        onChangeText={(value)=>setInput(value)}
+        onChangeText={(value) => setInput(value)}
         placeholder="Enter Your Ingredients or Recipe name"
       />
       <View
@@ -69,11 +66,16 @@ export default function GenerateAiRecipe() {
           marginTop: 25,
         }}
       >
-        <Button title={"Generate Recipe"} onPress={GenerateRecipeOptions}
-        loading={loading} />
+        <Button
+          title={"Generate Recipe"}
+          onPress={GenerateRecipeOptions}
+          loading={loading}
+        />
       </View>
 
-      <RecipeOptionList recipeOption={recipeOption}/>
+      {recipeOption?.length > 0 && (
+        <RecipeOptionList recipeOption={recipeOption} />
+      )}
     </View>
   );
 }
