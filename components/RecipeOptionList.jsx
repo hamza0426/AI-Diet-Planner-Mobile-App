@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { GenerateAIRecipe } from "../services/AiModel";
+import { GenerateAIRecipe, GenerateRecipeImage } from "../services/AiModel";
 import Colors from "../shared/Colors";
 import Prompt from "../shared/Prompt";
 import LoadingDialog from "./LoadingDialog";
@@ -24,7 +24,12 @@ export default function RecipeOptionList({ recipeOption }) {
         .replace("```", "");
       const parsedJSONResp = JSON.parse(extractJson);
       console.log(parsedJSONResp);
+
       // Generate Recipe image
+      const aiImageResp = await GenerateRecipeImage(
+        parsedJSONResp?.imagePrompt
+      );
+      console.log(aiImageResp?.data?.imaage);
 
       //Save to Database
 
