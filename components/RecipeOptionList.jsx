@@ -8,11 +8,14 @@ import LoadingDialog from "./LoadingDialog";
 import { useMutation } from "convex/react";
 import { api } from './../convex/_generated/api'
 import { UserContext } from "../context/UserContext";
+import { useRouter } from "expo-router";
 
 export default function RecipeOptionList({ recipeOption }) {
+
   const [loading, setLoading] = useState(false);
-  const {user} =useContext(UserContext)
   const CreateRecipe = useMutation (api.Recipes.CreateRecipe)
+  const {user} =useContext(UserContext)
+  const router = useRouter();
   
   const onRecipeOptionSelect = async (recipe) => {
     setLoading(true);
@@ -37,6 +40,8 @@ export default function RecipeOptionList({ recipeOption }) {
       );
       console.log(aiImageResp?.data?.image);
 
+
+
       //Save to Database
       const saveRecipeResult = await CreateRecipe ({
         jsonData:parsedJSONResp,
@@ -46,9 +51,14 @@ export default function RecipeOptionList({ recipeOption }) {
 
       })
       console.log(saveRecipeResult);
-      //redirect to recipe details screen
 
-      setLoading(false);
+
+      //redirect to recipe details screen
+       setLoading(false);
+       router.push({
+        pathname: '/recipe-detail',
+        recipeId:saveRecipeResult
+       })
     } catch (e) {
       setLoading(false);
     }
