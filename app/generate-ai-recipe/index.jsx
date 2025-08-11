@@ -45,7 +45,7 @@ export default function GenerateAiRecipe() {
           fontWeight: "bold",
         }}
       >
-        AI Recipe Generator
+        AI Recipe Generator  ✨
       </Text>
       <Text
         style={{

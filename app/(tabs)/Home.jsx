@@ -13,7 +13,7 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     if (!user?.weight) {
-      router.replace("/Home");
+      router.replace("/preferance");
     }
   }, [user]);
 

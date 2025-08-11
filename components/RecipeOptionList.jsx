@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { GenerateAIRecipe, GenerateRecipeImage } from "../services/AiModel";
 import Colors from "../shared/Colors";
 import Prompt from "../shared/Prompt";
 import LoadingDialog from "./LoadingDialog";
+import { useMutation } from "convex/react";
+import { api } from './../convex/_generated/api'
+import { UserContext } from "../context/UserContext";
 
 export default function RecipeOptionList({ recipeOption }) {
   const [loading, setLoading] = useState(false);
+  const {user} =useContext(UserContext)
+  const CreateRecipe = useMutation (api.Recipes.CreateRecipe)
+  
   const onRecipeOptionSelect = async (recipe) => {
     setLoading(true);
     const PROMPT =
@@ -29,10 +35,17 @@ export default function RecipeOptionList({ recipeOption }) {
       const aiImageResp = await GenerateRecipeImage(
         parsedJSONResp?.imagePrompt
       );
-      console.log(aiImageResp?.data?.imaage);
+      console.log(aiImageResp?.data?.image);
 
       //Save to Database
+      const saveRecipeResult = await CreateRecipe ({
+        jsonData:parsedJSONResp,
+        imageUrl:aiImageResp?.data?.image,
+        recipeName:parsedJSONResp?.recipeName,
+        uid:user?._id
 
+      })
+      console.log(saveRecipeResult);
       //redirect to recipe details screen
 
       setLoading(false);
