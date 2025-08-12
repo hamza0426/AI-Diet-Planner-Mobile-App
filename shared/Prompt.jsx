@@ -19,5 +19,23 @@ export default {
   - Give me category as List for recipe from [Breakfast, Lunch, Dinner, Snack, Dessert,Fastfood,Drink,Cake]as category
   - Give me response in JSON format only
   - Schema format should be:
-  {}`
+  {
+  "description": "string",
+  "recipeName": "string",
+  "calories": "number",
+  "category": ["string"],
+  "cookTime": "number",
+  "imagePrompt": "string",
+  "ingredients": [
+      {
+        "icon": "string",
+        "ingredient": "string",
+        "quantity": "string"
+      }
+  ],
+  "serveTo": "number",
+  "steps": ["string"]
+
+  }
+  `
 };

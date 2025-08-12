@@ -13,6 +13,7 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     if (!user?.weight) {
+      // router.replace('/recipe-detail');
       router.replace("/preferance");
     }
   }, [user]);

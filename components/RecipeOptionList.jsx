@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
+import { useMutation } from "convex/react";
+import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { UserContext } from "../context/UserContext";
 import { GenerateAIRecipe, GenerateRecipeImage } from "../services/AiModel";
 import Colors from "../shared/Colors";
 import Prompt from "../shared/Prompt";
+import { api } from './../convex/_generated/api';
 import LoadingDialog from "./LoadingDialog";
-import { useMutation } from "convex/react";
-import { api } from './../convex/_generated/api'
-import { UserContext } from "../context/UserContext";
-import { useRouter } from "expo-router";
 
 export default function RecipeOptionList({ recipeOption }) {
 
@@ -57,7 +57,8 @@ export default function RecipeOptionList({ recipeOption }) {
        setLoading(false);
        router.push({
         pathname: '/recipe-detail',
-        recipeId:saveRecipeResult
+        params: { recipeId: saveRecipeResult }
+        // recipeId:saveRecipeResult
        })
     } catch (e) {
       setLoading(false);
