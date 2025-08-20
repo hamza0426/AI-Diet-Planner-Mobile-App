@@ -11,12 +11,22 @@ import { UserContext } from "./../../context/UserContext";
 export default function Home() {
   const { user } = useContext(UserContext);
   const router = useRouter();
+
+  // useEffect(() => {
+  //   if (!user?.weight) {
+  //     // router.replace('/recipe-detail');
+  //     router.replace("/preferance");
+  //   }
+  // }, [user]);
+
+
   useEffect(() => {
-    if (!user?.weight) {
-      // router.replace('/recipe-detail');
+    if (user === undefined || user === null) return; // wait until user is fetched
+    if (!user.weight) {
       router.replace("/preferance");
     }
   }, [user]);
+  
 
   return (
     <View
