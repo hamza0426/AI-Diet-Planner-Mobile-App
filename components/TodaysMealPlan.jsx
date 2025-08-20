@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+// /* eslint-disable no-unused-vars */
 import { CalendarAdd01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useConvex } from "convex/react";
@@ -22,7 +22,7 @@ export default function TodaysMealPlan() {
 
 
   const GetTodaysMealPlan = async () => {
-    const result = await convex.query(api.MealPlan.GetTodaysMealPLan,{
+    const result = await convex.query(api.MealPlan.GetTodaysMealPlan,{
       date:moment().format('DD/MM/YYYY'),
       uid:user?._id
     });
@@ -34,8 +34,10 @@ export default function TodaysMealPlan() {
     <View
       style={{
         marginTop: 15,
+        
       }}
     >
+      
       <Text
         style={{
           fontSize: 20,
@@ -66,7 +68,8 @@ export default function TodaysMealPlan() {
           </Text>
           <Button title={"Create New Meal Plan!!"} />
         </View>
-        :<View>
+        :
+        <View>
           <FlatList 
           data={mealPlan}
           renderItem={({item}) => (

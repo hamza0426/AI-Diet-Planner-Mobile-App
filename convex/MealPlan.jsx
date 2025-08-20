@@ -19,7 +19,7 @@ export const CreateMealPlan = mutation({
   },
 });
 
-export const GetTodaysMealPLan = query({
+export const GetTodaysMealPlan = query({
   args: {
     uid: v.id("users"),
     date: v.string(),
