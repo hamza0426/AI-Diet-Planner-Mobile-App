@@ -10,15 +10,17 @@ import { api } from "../convex/_generated/api";
 import Colors from "../shared/Colors";
 import MealPlanCard from "./MealPlanCard";
 import Button from "./shared/Button";
+import { RefreshDataContext } from "../context/RefreshDataContext";
 
 export default function TodaysMealPlan() {
   const [mealPlan, setMealPlan] = useState();
   const { user } = useContext(UserContext)
   const convex = useConvex();
+  const {refreshData, setRefreshData} = useContext(RefreshDataContext);
 
   useEffect(() => {
     user && GetTodaysMealPlan();
-  },[user])
+  },[user, refreshData])
 
 
   const GetTodaysMealPlan = async () => {

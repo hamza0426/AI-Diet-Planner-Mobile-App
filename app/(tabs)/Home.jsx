@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "expo-router";
 import { useContext, useEffect } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, Platform, View } from "react-native";
 import GenerateRecipeCard from "../../components/GenerateRecipeCard";
 import HomeHeader from "../../components/HomeHeader";
 import TodayProgress from "../../components/TodayProgress";
@@ -45,18 +45,19 @@ export default function Home() {
 
     //for ScrollView
     <FlatList
-      data={[]} // no list data here, just use header
-      renderItem={null}
+      data={[]} 
+      renderItem={()=>null}
       ListHeaderComponent={
-        <View style={{ padding: 20 }}>
+        <View style={{ 
+          paddingTop: Platform.OS == "ios" ? 40 : 30,
+          padding: 20
+           }}>
           <HomeHeader />
           <TodayProgress />
           <GenerateRecipeCard />
           <TodaysMealPlan />
         </View>
       }
-      contentContainerStyle={{ paddingBottom: 40 }}
-      showsVerticalScrollIndicator={false}
     />
   );
 }
