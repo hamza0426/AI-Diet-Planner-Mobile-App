@@ -12,6 +12,7 @@ import { api } from "../convex/_generated/api";
 import Colors from "../shared/Colors";
 import { UserContext } from './../context/UserContext';
 import Button from "./shared/Button";
+import DateSelectionCard from "./DateSelectionCard";
 
 export default function AddToMealActionSheet({ recipeDetail , hideActionSheet }) {
   const [dateList, setDateList] = useState([]);
@@ -36,18 +37,22 @@ export default function AddToMealActionSheet({ recipeDetail , hideActionSheet })
       icon: Moon02Icon,
     },
   ];
-  useEffect(() => {
-    GenerateDates();
-  }, []);
-  const GenerateDates = () => {
-    const result = [];
-    for (let i = 0; i < 4; i++) {
-      const nextDate = moment().add(i, "days").format("DD/MM/YYYY");
-      result.push(nextDate);
-    }
-    console.log(result);
-    setDateList(result);
-  };
+  
+  //
+  // useEffect(() => {
+  //   GenerateDates();
+  // }, []);
+
+  // const GenerateDates = () => {
+  //   const result = [];
+  //   for (let i = 0; i < 4; i++) {
+  //     const nextDate = moment().add(i, "days").format("DD/MM/YYYY");
+  //     result.push(nextDate);
+  //   }
+  //   console.log(result);
+  //   setDateList(result);
+  // };
+  //
 
   const AddToMealPlan =async () => {
     if (!selectedDate && !selectedMeal) {
@@ -91,7 +96,12 @@ export default function AddToMealActionSheet({ recipeDetail , hideActionSheet })
       >
         Add to Meal!!
       </Text>
-      <Text
+
+
+
+      <DateSelectionCard setSelectedDate={setSelectedDate} />  
+      {/* from   */}
+      {/* <Text
         style={{
           fontSize: 18,
           fontWeight: "bold",
@@ -145,8 +155,8 @@ export default function AddToMealActionSheet({ recipeDetail , hideActionSheet })
             </Text>
           </TouchableOpacity>
         )}
-      />
-
+      /> */}
+    {/* till here  */}
 
 
       <Text

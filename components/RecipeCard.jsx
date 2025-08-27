@@ -1,8 +1,8 @@
 import {
   Clock01FreeIcons,
-  Fire02Icon,
-  HugeiconsIcon,
+  Fire02Icon
 } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react-native";
 import { Link } from "expo-router";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Colors from "../shared/Colors";
@@ -37,34 +37,34 @@ export default function RecipeCard({ recipe }) {
         >
           <Text
             style={{
-              fontSize: 17,
+              fontSize: 14,
               fontWeight: "bold",
             }}
           >
             {recipe?.recipeName}
           </Text>
-          <View style={[styles.infoContainer, { gap: 15, marginTop: 6 }]}>
+          <View style={[styles.infoContainer, { gap: 8, marginTop: 10 }]}>
             <View style={styles.infoContainer}>
-              <HugeiconsIcon icon={Fire02Icon} color={Colors.RED} size={18} />
+              <HugeiconsIcon icon={Fire02Icon} color={Colors.RED} size={15} />
               <Text
                 style={{
-                  fontSize: 14,
-                  color: Colors.Gray,
+                  fontSize: 12,
+                  // color: Colors.Gray,
                 }}
               >
-                {recipeJson?.calories} kCal
+                {recipeJson?.calories} kcal
               </Text>
             </View>
             <View style={styles.infoContainer}>
               <HugeiconsIcon
                 icon={Clock01FreeIcons}
                 color={Colors.RED}
-                size={18}
+                size={15}
               />
               <Text
                 style={{
-                  fontSize: 14,
-                  color: Colors.Gray,
+                  fontSize: 12,
+                  // color: Colors.Gray,
                 }}
               >
                 {recipeJson?.cookTime} Min

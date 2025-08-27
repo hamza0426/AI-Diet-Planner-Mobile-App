@@ -28,7 +28,8 @@ export default function Meals() {
             Discover Recipes!!
           </Text>
           <GenerateRecipeCard />
-          <View>
+
+          <View style={{ marginTop: 20 }}>
             <FlatList
               data={recipeList}
               numColumns={2}
