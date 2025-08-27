@@ -1,15 +1,17 @@
 // eslint-disable eqeqeq ;
 // eslint-disable no-unused-expressions ;
-import {  Coffee02Icon,  Moon02Icon,  Sun03Icon} from "@hugeicons/core-free-icons";
+import { Coffee02Icon, Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
+import { useMutation } from "convex/react";
+import { useRouter } from "expo-router";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
-import Colors from "../shared/Colors";
-import Button from "./shared/Button";
-import { useMutation } from "convex/react";
+import { RefreshDataContext } from "../context/RefreshDataContext";
 import { api } from "../convex/_generated/api";
-import { UserContext } from './../context/UserContext'
+import Colors from "../shared/Colors";
+import { UserContext } from './../context/UserContext';
+import Button from "./shared/Button";
 
 export default function AddToMealActionSheet({ recipeDetail , hideActionSheet }) {
   const [dateList, setDateList] = useState([]);
@@ -17,6 +19,8 @@ export default function AddToMealActionSheet({ recipeDetail , hideActionSheet })
   const [selectedMeal, setSelectedMeal] = useState();
   const { user } = useContext (UserContext)
   const CreateMealPlan = useMutation(api.MealPlan.CreateMealPlan)
+  const { refreshData, setRefreshData } = useContext(RefreshDataContext); 
+  const router = useRouter(); // ✅ initialize router
 
   const mealOptions = [
     {
@@ -58,7 +62,14 @@ export default function AddToMealActionSheet({ recipeDetail , hideActionSheet })
 
     console.log(result)
     Alert.alert('Added!', 'Added! to Meal Plan 🎉 ')
-    hideActionSheet()
+    
+    // ✅ refresh home data
+    setRefreshData(Date.now());
+
+    hideActionSheet();
+
+    // ✅ navigate to home
+    router.replace("/Home");
   }
 
 
