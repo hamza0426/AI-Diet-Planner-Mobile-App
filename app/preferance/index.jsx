@@ -11,23 +11,26 @@ import Prompt from "../../shared/Prompt";
 import Button from "./../../components/shared/Button";
 import Input from "./../../components/shared/Input";
 import Colors from "./../../shared/Colors";
+import LoadingDialog from "../../components/LoadingDialog";
 
 export default function Preferance() {
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
   const [gender, setGender] = useState();
   const [goal, setGoal] = useState();
+  const [loading, setLoading] = useState(false);
   const UpdateUserPref = useMutation(api.Users.UpdateUserPref);
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
-
+  
   const onContinue = async () => {
     if (!weight || !height || !gender || !goal) {
       Alert.alert("Plese enter all details to continue!!");
       return;
     }
 
-
+    setLoading(true);
+    try {
 
     const data = {
       uid: user?._id,
@@ -56,11 +59,23 @@ export default function Preferance() {
     setUser((prev) => ({
       ...prev,
       ...data,
+      calories: JSONContent.calories,
+      proteins: JSONContent.proteins,
+      email: prev?.email,
     }));
+    console.log(result);
     router.replace("/(tabs)/Home");
    
-  };
-
+  }
+  catch (err) {
+    console.log(err);
+    Alert.alert("Error", "Something went wrong. Please try again.");
+  } finally {
+    setLoading(false); // 👈 stop loading always
+  }
+};
+  
+  
   return (
     <View
       style={{
@@ -273,7 +288,8 @@ export default function Preferance() {
           marginTop: 25,
         }}
       >
-        <Button title={"Continue"} onPress={onContinue} />
+        <Button title={"Continue"} onPress={onContinue}/>
+        <LoadingDialog loading={loading} />
       </View>
     </View>
   );

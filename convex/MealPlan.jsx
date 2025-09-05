@@ -14,6 +14,7 @@ export const CreateMealPlan = mutation({
       date: args.date,
       mealType: args.mealType,
       uid: args.uid,
+      status: false,
     });
     return result;
   },

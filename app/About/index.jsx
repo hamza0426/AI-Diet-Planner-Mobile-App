@@ -1,14 +1,7 @@
 import React from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import Colors from "../../shared/Colors";
-
-// Use icons you already have in the project:
-import {
-    AnalyticsUpIcon,
-    CookBookIcon, // Version
-    ServingFoodIcon, // Features
-    WalletAdd01Icon, // Version
-} from "@hugeicons/core-free-icons";
+import { AnalyticsUpIcon, CookBookIcon,ServingFoodIcon, WalletAdd01Icon} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 
 export default function About() {
@@ -104,67 +97,7 @@ const styles = StyleSheet.create({
   },
   devName: {
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: 400,
   },
 });
 
-
-
-// import { View, Text, StyleSheet, Platform, ScrollView } from "react-native";
-// import React from "react";
-// import Colors from "../../shared/Colors";
-
-// export default function About() {
-//   return (
-//     <ScrollView
-//       contentContainerStyle={{
-//         padding: 20,
-//         paddingTop: Platform.OS === "ios" ? 50 : 30,
-//       }}
-//     >
-//       <Text style={styles.title}>About AI Diet Planner</Text>
-
-//       <Text style={styles.text}>
-//         AI Diet Planner is your smart companion for planning meals, tracking
-//         nutrition, and staying on top of your health goals. Using AI-powered
-//         recipe suggestions and meal planning tools, we make healthy eating
-//         simple and personalized.
-//       </Text>
-
-//       <Text style={styles.sectionTitle}>Features:</Text>
-//       <Text style={styles.text}>• Personalized meal plans</Text>
-//       <Text style={styles.text}>• AI-powered recipe generation</Text>
-//       <Text style={styles.text}>• Nutrition tracking</Text>
-//       <Text style={styles.text}>• Progress monitoring</Text>
-
-//       <Text style={styles.sectionTitle}>Version</Text>
-//       <Text style={styles.text}>1.0.0</Text>
-
-//       <Text style={styles.sectionTitle}>Developed By</Text>
-//       <Text style={styles.text}>Muhammad Fahad</Text>
-//       <Text style={styles.text}>Muhammad Hamza Owais</Text>
-//     </ScrollView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   title: {
-//     fontSize: 24,
-//     fontWeight: "bold",
-//     color: Colors.PRIMARY,
-//     marginBottom: 15,
-//   },
-//   sectionTitle: {
-//     fontSize: 18,
-//     fontWeight: "bold",
-//     marginTop: 20,
-//     marginBottom: 5,
-//     color: Colors.PRIMARY,
-//   },
-//   text: {
-//     fontSize: 16,
-//     lineHeight: 22,
-//     color: Colors.Gray,
-//     marginBottom: 5,
-//   },
-// });
